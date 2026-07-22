@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mrsl Travel Nepal | Plan Your Personalized Nepal Trip</title>
+  <meta name="description" content="Explore Nepal, build a personalized itinerary, calculate your travel budget, discover trekking routes, culture, food, cities, and request a final quotation from Mrsl Travel Nepal.">
+  <meta name="keywords" content="Nepal travel, Nepal tour, Nepal trekking, Everest Base Camp, Annapurna, Kathmandu, Pokhara, Chitwan, Nepal visa, Nepal itinerary">
+  <meta name="author" content="Mrsl Travel Nepal">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="Mrsl Travel Nepal | Plan Your Personalized Nepal Trip">
+  <meta property="og:description" content="Discover Nepal. Design your journey. Travel with confidence.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1600&q=80">
+  <meta property="og:url" content="https://example.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b3b5a">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"TravelAgency",
+    "name":"Mrsl Travel Nepal",
+    "description":"Personalized Nepal trip planning, trekking, transportation, hotels, guides, visa guidance and customized quotations.",
+    "address":{"@type":"PostalAddress","addressLocality":"Kathmandu","addressCountry":"NP"},
+    "telephone":"+977-9800000000",
+    "email":"travel@mrslnepal.com",
+    "areaServed":"Nepal",
+    "url":"https://example.com"
+  }
+  </script>
+
+  <style>
+    :root{
+      --blue:#0b3b5a;--blue2:#145f87;--orange:#f47b20;--crimson:#c8102e;--green:#1d6b4f;
+      --gold:#d7a542;--cream:#fffaf0;--paper:#fffdf8;--ink:#12232d;--muted:#5d6d75;
+      --shadow:0 18px 50px rgba(10,40,60,.15);--radius:22px;--radius-sm:14px;
+      --grad:linear-gradient(135deg,var(--blue),var(--blue2) 55%,#0b7a75);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+    .container{width:min(1180px,92%);margin:auto}
+    .section{padding:92px 0;position:relative}
+    .section.alt{background:linear-gradient(180deg,#fff9ed,#fff)}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;color:var(--orange);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.78rem}
+    h1,h2,h3{font-family:"Playfair Display",serif;line-height:1.1;margin:0}
+    h2{font-size:clamp(2rem,4vw,3.4rem)}
+    .lead{color:var(--muted);line-height:1.8;font-size:1.04rem}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:34px}
+    .section-head>div:first-child{max-width:760px}
+    .btn{border:0;border-radius:999px;padding:13px 21px;font-weight:800;display:inline-flex;gap:9px;align-items:center;justify-content:center;transition:.25s;white-space:nowrap}
+    .btn-primary{background:linear-gradient(135deg,var(--orange),#ffab3d);color:#fff;box-shadow:0 12px 28px rgba(244,123,32,.3)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(244,123,32,.42)}
+    .btn-dark{background:var(--blue);color:#fff}
+    .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(12px)}
+    .btn-light{background:#fff;color:var(--blue);box-shadow:var(--shadow)}
+    .chip{border:1px solid #dbe3e8;background:#fff;border-radius:999px;padding:9px 14px;font-weight:700;color:#37515e}
+    .chip.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .grid{display:grid;gap:24px}
+    .card{background:#fff;border:1px solid rgba(10,50,70,.08);border-radius:var(--radius);box-shadow:0 10px 35px rgba(9,46,66,.08);overflow:hidden;transition:.3s}
+    .card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+    .tag{font-size:.74rem;font-weight:800;border-radius:999px;padding:6px 10px;background:#eef6f4;color:var(--green);display:inline-block}
+    .badge{font-size:.75rem;font-weight:800;border-radius:999px;padding:7px 10px;color:#fff;background:var(--orange)}
+    .reveal{opacity:0;transform:translateY(28px);transition:.7s}
+    .reveal.visible{opacity:1;transform:none}
+    .toast{position:fixed;right:18px;bottom:18px;z-index:5000;background:#102b3a;color:#fff;padding:14px 18px;border-radius:12px;box-shadow:var(--shadow);transform:translateY(120px);opacity:0;transition:.3s;max-width:360px}
+    .toast.show{transform:none;opacity:1}
+
+    /* NAV */
+    header{position:fixed;inset:0 0 auto;z-index:2000;transition:.3s}
+    header.scrolled{background:rgba(7,35,52,.86);backdrop-filter:blur(16px);box-shadow:0 8px 30px rgba(0,0,0,.18)}
+    .nav{height:82px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .logo img{width:190px;height:58px;object-fit:contain;background:#fff;border-radius:12px;padding:5px}
+    .nav-links{display:flex;align-items:center;gap:18px;color:#fff;font-size:.88rem;font-weight:700}
+    .nav-links a{position:relative}
+    .nav-links a:after{content:"";position:absolute;left:0;right:100%;bottom:-7px;height:2px;background:var(--orange);transition:.25s}
+    .nav-links a.active:after,.nav-links a:hover:after{right:0}
+    .lang{color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:9px;border-radius:10px}
+    .hamburger{display:none;background:none;border:0;color:#fff;font-size:1.5rem}
+
+    /* HERO */
+    .hero{min-height:100vh;display:grid;place-items:center;color:#fff;position:relative;overflow:hidden;background:#06283c}
+    .hero-bg{position:absolute;inset:-5%;background:
+      linear-gradient(90deg,rgba(3,20,31,.83),rgba(4,28,43,.28) 52%,rgba(3,20,31,.52)),
+      url("https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=2200&q=85") center/cover;
+      animation:heroZoom 18s ease-in-out infinite alternate}
+    @keyframes heroZoom{to{transform:scale(1.08)}}
+    .sun-glow{position:absolute;width:430px;height:430px;border-radius:50%;right:8%;top:9%;background:radial-gradient(circle,rgba(255,181,76,.36),transparent 67%);filter:blur(8px);animation:pulse 5s infinite}
+    @keyframes pulse{50%{transform:scale(1.16);opacity:.68}}
+    .mist{position:absolute;left:-20%;right:-20%;bottom:7%;height:160px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.13),transparent);filter:blur(28px);animation:mist 15s linear infinite}
+    @keyframes mist{to{transform:translateX(18%)}}
+    .flags{position:absolute;top:90px;right:4%;width:300px;height:80px;border-top:2px solid rgba(255,255,255,.45);transform:rotate(-5deg)}
+    .flags i{display:inline-block;width:38px;height:38px;clip-path:polygon(0 0,100% 0,84% 100%,10% 78%);margin-right:4px;animation:flag 2.4s ease-in-out infinite alternate;transform-origin:top}
+    .flags i:nth-child(5n+1){background:#2d75d6}.flags i:nth-child(5n+2){background:#fff}.flags i:nth-child(5n+3){background:#d64541}.flags i:nth-child(5n+4){background:#2b9a5b}.flags i:nth-child(5n){background:#f1c84b}
+    @keyframes flag{to{transform:skewY(7deg) scaleX(.92)}}
+    .hero-content{position:relative;z-index:2;padding-top:90px}
+    .hero-copy{max-width:820px}
+    .hero h1{font-size:clamp(3.5rem,8vw,7.2rem);letter-spacing:-.04em;text-shadow:0 12px 35px rgba(0,0,0,.34)}
+    .hero p{max-width:720px;font-size:clamp(1rem,2vw,1.25rem);line-height:1.75;color:#ecf6fa}
+    .hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin:26px 0 38px}
+    .hero-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+    .hero-stat{padding:17px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.2);border-radius:16px;backdrop-filter:blur(12px)}
+    .hero-stat strong{font-size:1.35rem;display:block}
+    .hero-stat span{font-size:.8rem;color:#e1eef3}
+    .scroll-down{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);z-index:3;color:#fff;animation:bob 1.6s infinite}
+    @keyframes bob{50%{transform:translate(-50%,8px)}}
+
+    /* REGIONS */
+    .region-grid{grid-template-columns:repeat(3,1fr)}
+    .region-card{min-height:420px;position:relative;color:#fff}
+    .region-card img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+    .region-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 10%,rgba(4,24,34,.88))}
+    .region-body{position:absolute;z-index:2;inset:auto 24px 24px}
+    .region-body ul{padding-left:18px;line-height:1.7;color:#e8f2f5}
+
+    /* Destination */
+    .toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:26px}
+    .search{flex:1;min-width:240px;display:flex;align-items:center;background:#fff;border:1px solid #dbe4e9;border-radius:999px;padding:0 16px}
+    .search input{width:100%;border:0;outline:0;padding:13px;background:transparent}
+    .dest-grid{grid-template-columns:repeat(3,1fr)}
+    .dest-card .media{height:220px;position:relative;overflow:hidden}
+    .dest-card .media img{width:100%;height:100%;object-fit:cover;transition:.5s}
+    .dest-card:hover .media img{transform:scale(1.07)}
+    .dest-card .media .badge{position:absolute;top:14px;left:14px}
+    .dest-body{padding:20px}
+    .dest-meta{display:flex;gap:9px;flex-wrap:wrap;font-size:.78rem;color:#526873;margin:12px 0}
+    .dest-actions{display:flex;gap:9px;margin-top:16px}
+    .dest-actions .btn{padding:10px 14px;font-size:.82rem}
+    .modal{position:fixed;inset:0;background:rgba(4,20,29,.72);z-index:4000;display:none;place-items:center;padding:20px}
+    .modal.show{display:grid}
+    .modal-panel{width:min(780px,96vw);max-height:88vh;overflow:auto;background:#fff;border-radius:24px;box-shadow:0 35px 90px rgba(0,0,0,.3);animation:pop .25s}
+    @keyframes pop{from{transform:scale(.96);opacity:0}}
+    .modal-cover{height:280px;position:relative}.modal-cover img{width:100%;height:100%;object-fit:cover}
+    .modal-close{position:absolute;right:15px;top:15px;width:42px;height:42px;border:0;border-radius:50%;background:#fff;font-size:1.1rem}
+    .modal-content{padding:26px}.modal-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .fact{background:#f6f9fa;border-radius:14px;padding:13px}.fact small{color:var(--muted);display:block}
+
+    #map{height:560px;border-radius:24px;box-shadow:var(--shadow);z-index:1}
+    .leaflet-popup-content-wrapper{border-radius:16px}
+    .map-popup img{width:220px;height:110px;object-fit:cover;border-radius:10px;margin-bottom:8px}
+
+    /* Trek */
+    .trek-grid{grid-template-columns:repeat(3,1fr)}
+    .trek-card{padding:22px}
+    .difficulty{height:8px;background:#e8eef0;border-radius:99px;overflow:hidden;margin:10px 0}.difficulty span{display:block;height:100%;background:linear-gradient(90deg,#4ea85e,#f1bd35,#dd553f)}
+    .trek-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:15px 0}
+    .trek-stat{padding:10px;border-radius:12px;background:#f5f8fa;font-size:.8rem}
+    .compare-bar{position:sticky;bottom:10px;z-index:1000;background:rgba(11,59,90,.95);color:#fff;border-radius:18px;padding:14px 18px;display:none;align-items:center;justify-content:space-between;gap:12px;box-shadow:var(--shadow)}
+    .compare-bar.show{display:flex}
+
+    /* climate culture food activities */
+    .climate-grid{grid-template-columns:repeat(4,1fr)}.climate-card{padding:20px;text-align:center}
+    .climate-card i{font-size:2rem;color:var(--orange)}
+    .culture-strip,.food-grid,.activity-grid{grid-template-columns:repeat(4,1fr)}
+    .image-card{position:relative;min-height:330px;color:#fff}.image-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.image-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(3,23,35,.92))}
+    .image-card .content{position:absolute;inset:auto 18px 18px;z-index:2}
+    .food-card .media{height:190px}.food-card img{width:100%;height:100%;object-fit:cover}.food-card .content{padding:16px}
+    .activity-card{padding:20px}.activity-icon{width:52px;height:52px;display:grid;place-items:center;border-radius:15px;background:#edf6f3;color:var(--green);font-size:1.35rem}
+
+    /* Planner */
+    .planner-wrap{display:grid;grid-template-columns:260px 1fr;gap:24px;align-items:start}
+    .planner-side{position:sticky;top:105px;background:var(--grad);color:#fff;border-radius:22px;padding:22px}
+    .progress-track{height:8px;background:rgba(255,255,255,.2);border-radius:99px;overflow:hidden;margin:14px 0}.progress-fill{height:100%;width:11%;background:var(--gold);transition:.3s}
+    .step-list{display:grid;gap:9px;margin-top:20px}.step-link{font-size:.83rem;opacity:.65}.step-link.active{opacity:1;font-weight:800}
+    .planner-card{padding:28px;background:#fff;border-radius:24px;box-shadow:var(--shadow)}
+    .planner-step{display:none}.planner-step.active{display:block;animation:fade .3s}@keyframes fade{from{opacity:0;transform:translateX(12px)}}
+    .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    label{font-weight:700;font-size:.88rem;display:block;margin-bottom:7px}
+    input,select,textarea{width:100%;border:1px solid #d8e2e7;border-radius:12px;padding:12px 13px;background:#fff}
+    textarea{min-height:120px;resize:vertical}
+    .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .choice{border:1px solid #dce5e9;border-radius:15px;padding:14px;cursor:pointer;transition:.2s;background:#fff}
+    .choice input{width:auto;margin-right:8px}.choice.selected{border-color:var(--orange);background:#fff6ed;box-shadow:0 8px 20px rgba(244,123,32,.12)}
+    .planner-actions{display:flex;justify-content:space-between;gap:12px;margin-top:24px}
+    .saved-note{font-size:.78rem;color:var(--green);font-weight:700;margin-top:10px}
+
+    /* Report */
+    .report{display:none;margin-top:28px;background:#fff;border-radius:24px;box-shadow:var(--shadow);overflow:hidden}
+    .report.show{display:block}
+    .report-cover{background:var(--grad);color:#fff;padding:34px;display:flex;justify-content:space-between;gap:20px}
+    .report-body{padding:30px}
+    .summary-grid{grid-template-columns:repeat(4,1fr)}
+    .summary-box{background:#f3f7f9;border-radius:14px;padding:15px}
+    .route-line{display:flex;gap:0;overflow-x:auto;padding:18px 0}.route-stop{min-width:150px;text-align:center;position:relative}.route-stop:before{content:"";position:absolute;top:16px;left:0;right:0;height:3px;background:#d6e1e6}.route-stop:first-child:before{left:50%}.route-stop:last-child:before{right:50%}.route-dot{position:relative;z-index:2;width:34px;height:34px;margin:auto;border-radius:50%;display:grid;place-items:center;background:var(--orange);color:#fff}
+    .itinerary-day{display:grid;grid-template-columns:80px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid #e6edef}
+    .day-num{width:58px;height:58px;border-radius:18px;background:#edf6f3;color:var(--green);display:grid;place-items:center;font-weight:900}
+    table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px;border-bottom:1px solid #e1e9ed}th{background:#f3f7f9}
+    .report-actions{display:flex;gap:10px;flex-wrap:wrap;padding:20px 30px;background:#f6f9fa}
+    .loader{display:none;text-align:center;padding:40px}.loader.show{display:block}.spinner{width:56px;height:56px;border:6px solid #e7eef1;border-top-color:var(--orange);border-radius:50%;margin:auto;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+
+    /* Visa, testimonial, faq, contact */
+    .visa-box{background:linear-gradient(135deg,#fff3e5,#f0f8f4);border:1px solid #f3d3a9;border-radius:28px;padding:34px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px}
+    .check-list{columns:2;line-height:2}
+    .trust-grid{grid-template-columns:repeat(5,1fr)}.trust-card{padding:20px;text-align:center}.trust-card i{font-size:1.6rem;color:var(--orange);margin-bottom:10px}
+    .testimonial-wrap{display:grid;grid-template-columns:repeat(3,1fr)}.testimonial{padding:24px}.stars{color:var(--gold)}
+    .faq{max-width:900px;margin:auto}.faq-item{border-bottom:1px solid #dce5e9}.faq-q{width:100%;border:0;background:none;display:flex;justify-content:space-between;text-align:left;padding:18px 0;font-weight:800}.faq-a{max-height:0;overflow:hidden;color:var(--muted);transition:.3s;line-height:1.7}.faq-item.open .faq-a{max-height:200px;padding-bottom:18px}
+    .contact-grid{grid-template-columns:.9fr 1.1fr}.contact-panel{padding:28px}.contact-list{display:grid;gap:14px}.contact-row{display:flex;gap:12px}.contact-row i{color:var(--orange);margin-top:4px}
+    .contact-map{min-height:300px;background:linear-gradient(135deg,rgba(11,59,90,.8),rgba(29,107,79,.76)),url("https://images.unsplash.com/photo-1605640840605-14ac1855827b?auto=format&fit=crop&w=1200&q=80") center/cover;border-radius:18px;display:grid;place-items:center;color:#fff;text-align:center;padding:30px}
+
+    footer{background:#071f2d;color:#d8e6ec;padding:62px 0 20px}
+    .footer-grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:30px}.footer-grid h3{font-family:Manrope;font-size:1rem;color:#fff;margin-bottom:14px}.footer-grid a{display:block;margin:9px 0;color:#c0d1d9}.socials{display:flex;gap:10px}.socials a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center}.copyright{margin-top:35px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;font-size:.82rem}
+
+    .floating-plan{position:fixed;right:18px;bottom:84px;z-index:1900;border:0;border-radius:50%;width:58px;height:58px;background:var(--orange);color:#fff;box-shadow:0 15px 35px rgba(244,123,32,.38);font-size:1.25rem}
+    .scroll-progress{position:fixed;top:0;left:0;height:3px;background:var(--orange);z-index:9999;width:0}
+
+    @media(max-width:1024px){
+      .nav-links{position:fixed;top:82px;left:4%;right:4%;background:#082f46;border-radius:18px;padding:20px;display:none;flex-direction:column;align-items:flex-start}.nav-links.open{display:flex}
+      .hamburger{display:block}.nav .btn-primary{display:none}
+      .hero-stats,.trust-grid{grid-template-columns:repeat(3,1fr)}
+      .dest-grid,.trek-grid{grid-template-columns:repeat(2,1fr)}
+      .culture-strip,.food-grid,.activity-grid,.climate-grid{grid-template-columns:repeat(2,1fr)}
+      .planner-wrap{grid-template-columns:1fr}.planner-side{position:static}.step-list{display:none}
+      .summary-grid{grid-template-columns:repeat(2,1fr)}
+      .testimonial-wrap{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:700px){
+      .section{padding:68px 0}.section-head{display:block}.section-head .lead{margin-top:12px}
+      .hero h1{font-size:3.5rem}.flags{display:none}.hero-stats{grid-template-columns:repeat(2,1fr)}
+      .region-grid,.dest-grid,.trek-grid,.culture-strip,.food-grid,.activity-grid,.climate-grid,.testimonial-wrap,.contact-grid,.footer-grid{grid-template-columns:1fr}
+      .form-grid,.choice-grid,.modal-facts{grid-template-columns:1fr}
+      .visa-box{grid-template-columns:1fr}.check-list{columns:1}
+      .report-cover{display:block}.summary-grid{grid-template-columns:1fr 1fr}
+      .itinerary-day{grid-template-columns:60px 1fr}
+      .hero-actions .btn{width:100%}
+      #map{height:450px}
+    }
+    @media print{
+      header,.hero,.section:not(#planner),footer,.floating-plan,.report-actions,.planner-wrap,.toast,.scroll-progress{display:none!important}
+      #planner{padding:0}.report{display:block!important;box-shadow:none}.report-cover{color:#000;background:#fff;border-bottom:2px solid #000}
+    }
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<header id="header">
+  <div class="container nav">
+    <a class="logo" href="#home" aria-label="Mrsl Travel Nepal home">
+      <!-- REPLACE THIS DEMO LOGO URL WITH YOUR REAL LOGO -->
+      <img src="https://placehold.co/220x80/ffffff/0b3b5a?text=Mrsl+Travel+Nepal" alt="Mrsl Travel Nepal logo">
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="#home">Home</a><a href="#explore">Explore Nepal</a><a href="#destinations">Destinations</a>
+      <a href="#trekking">Trekking</a><a href="#culture">Culture</a><a href="#food">Food</a>
+      <a href="#planner">Trip Planner</a><a href="#visa">Visa Help</a><a href="#about">About Us</a><a href="#contact">Contact</a>
+    </nav>
+    <select class="lang" aria-label="Language"><option>EN</option><option disabled>नेपाली (Soon)</option></select>
+    <a class="btn btn-primary" href="#planner"><i class="fa-solid fa-route"></i> Plan My Nepal Trip</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-bg" aria-hidden="true"></div><div class="sun-glow"></div><div class="mist"></div>
+  <div class="flags" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="container hero-content">
+    <div class="hero-copy">
+      <span class="eyebrow" style="color:#ffd27d"><i class="fa-solid fa-mountain-sun"></i> Discover Nepal. Design Your Journey.</span>
+      <h1>Discover the Soul of Nepal</h1>
+      <p>Explore ancient cities, Himalayan trails, peaceful lakes, wildlife, local food, living traditions, and unforgettable adventures.</p>
+      <p><strong>From the Himalayas to the Terai, we help you plan every step of your Nepal adventure.</strong></p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#planner">Plan My Nepal Trip</a>
+        <a class="btn btn-ghost" href="#destinations">Explore Destinations</a>
+        <a class="btn btn-ghost" href="#visa">Get Visa Assistance</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>8 / 14</strong><span>World's highest mountains</span></div>
+      <div class="hero-stat"><strong>100+</strong><span>Ethnic communities</span></div>
+      <div class="hero-stat"><strong>Heritage</strong><span>UNESCO-listed cultural sites</span></div>
+      <div class="hero-stat"><strong>Wildlife</strong><span>Jungle safari experiences</span></div>
+      <div class="hero-stat"><strong>Iconic</strong><span>World-famous trekking routes</span></div>
+    </div>
+  </div>
+  <a class="scroll-down" href="#explore" aria-label="Scroll to explore"><i class="fa-solid fa-angles-down"></i></a>
+</section>
+
+<section class="section" id="explore">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">Three worlds in one country</span><h2>Nepal From Himalaya to Terai</h2></div>
+      <p class="lead">A compact country with dramatic altitude changes, ancient Hindu and Buddhist heritage, wildlife, village life, adventure, food, festivals and heartfelt hospitality.</p>
+    </div>
+    <div class="grid region-grid">
+      <article class="card region-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1571401835393-8c5f35328320?auto=format&fit=crop&w=1000&q=80" alt="Snowy Himalayan mountains in Nepal"><div class="region-body"><span class="tag">Himalayan Region</span><h3>Above the Clouds</h3><p>Everest, Annapurna, Manaslu, Kanchenjunga, Langtang, Upper Mustang and Dolpo.</p><ul><li>High-altitude trekking and mountain villages</li><li>Sherpa culture, monasteries and snow landscapes</li><li>Remote expeditions and spiritual journeys</li></ul></div></article>
+      <article class="card region-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1605640840605-14ac1855827b?auto=format&fit=crop&w=1000&q=80" alt="Temple and hills of Nepal"><div class="region-body"><span class="tag">Hilly Region</span><h3>Valleys, Lakes & Heritage</h3><p>Kathmandu Valley, Pokhara, Bandipur, Tansen, Ilam, Gorkha and Dhulikhel.</p><ul><li>Temples, traditional towns and heritage walks</li><li>Lakes, tea gardens and sunrise viewpoints</li><li>Food, festivals and village homestays</li></ul></div></article>
+      <article class="card region-card reveal"><img loading="lazy" src="https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1000&q=80" alt="One-horned rhinoceros in Nepal"><div class="region-body"><span class="tag">Terai Region</span><h3>Wildlife & Sacred Plains</h3><p>Chitwan, Lumbini, Bardia, Janakpur and the Koshi region.</p><ul><li>National parks, wetlands and jungle safaris</li><li>Birthplace of Buddha and Mithila culture</li><li>Tharu villages, birdwatching and warm plains</li></ul></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="destinations">
+  <div class="container">
+    <div class="section-head reveal"><div><span class="eyebrow">Interactive explorer</span><h2>Find Your Nepal</h2></div><p class="lead">Search, filter, explore details and add destinations directly to your trip planner.</p></div>
+    <div class="toolbar reveal">
+      <div class="search"><i class="fa-solid fa-magnifying-glass"></i><input id="destinationSearch" type="search" placeholder="Search destinations, attractions or experiences..." aria-label="Search destinations"></div>
+      <div id="destFilters" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    </div>
+    <div class="grid dest-grid" id="destinationGrid"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal"><div><span class="eyebrow">Interactive map</span><h2>Map Your Nepal Adventure</h2></div><p class="lead">Click a marker for highlights, typical season guidance and a quick add-to-trip action.</p></div>
+    <div id="map" class="reveal" aria-label="Interactive map of Nepal destinations"></div>
+  </div>
+</section>
+
+<section class="section alt" id="trekking">
+  <div class="container">
+    <div class="section-head reveal"><div><span class="eyebrow">Trekking routes</span><h2>Walk Into the Himalayas</h2></div><p class="lead">Compare duration, altitude, difficulty, permits, climate and estimated costs before adding a trek.</p></div>
+    <div class="grid trek-grid" id="trekGrid"></div>
+    <div class="compare-bar" id="compareBar"><span id="compareText">Select up to three treks to compare.</span><button class="btn btn-light" id="compareBtn">Compare Selected</button></div>
+  </div>
+</section>
+
+<section class="section" id="weather">
+  <div class="container">
+    <div class="section-head reveal"><div><span class="eyebrow">Typical seasonal climate</span><h2>Plan for Nepal's Changing Weather</h2></div><p class="lead">Static climate guidance only—not live weather. Climate varies significantly with altitude, month and changing conditions.</p></div>
+    <div class="toolbar"><button class="chip active season-btn" data-season="Spring">Spring</button><button class="chip season-btn" data-season="Monsoon">Summer / Monsoon</button><button class="chip season-btn" data-season="Autumn">Autumn</button><button class="chip season-btn" data-season="Winter">Winter</button></div>
+    <div class="grid climate-grid" id="climateGrid"></div>
+    <p class="lead"><strong>Note:</strong> Climate values are general estimates and may vary by altitude, month, and changing weather conditions. <!-- WEATHER API: Connect a verified provider here later for live conditions. --></p>
+  </div>
+</section>
+
+<section class="section alt" id="culture">
+  <div class="container">
+    <div class="section-head reveal"><div><span class="eyebrow">Living heritage</span><h2>Culture, Faith & Festival</h2></div><p class="lead">Hindu and Buddhist traditions meet Newari, Sherpa, Tharu, Tamang, Gurung, Magar, Mithila, Rai and Limbu cultures.</p></div>
+    <div class="grid culture-strip" id="cultureGrid"></div>
+    <div style="margin-top:42px"><h3 style="font-size:2rem;margin-bottom:20px">Festival Calendar</h3><div class="grid culture-strip" id="festivalGrid"></div></div>
+  </div>
+</section>
+
+<section class="section" id="food">
+  <div class="container">
+    <div class="section-head reveal"><div><span class="eyebrow">Taste Nepal</span><h2>Food Worth Traveling For</h2></div><p class="lead">Filter traditional meals, street food, desserts, Newari specialties and mountain flavors.</p></div>
+    <div class="toolbar" id="foodFilters"></div>
+    <div class="grid food-grid" id="foodGrid"></div>
+  </div>
+</section>
+
+<section class="section alt" id="activities">
+  <div class="container">
+    <div class="section-head reveal"><div><span class="eyebrow">Things to do</span><h2>Make Every Day Memorable</h2></div><p class="lead">Adventure, wildlife, wellness, pilgrimage, culture, food, photography and relaxed exploration.</p></div>
+    <div class="grid activity-grid" id="activityGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="planner">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Main trip planner</span><h2>Design Your Nepal Journey</h2></div><p class="lead">No account required. Your unfinished plan is stored only in your browser using localStorage.</p></div>
+    <div class="planner-wrap">
+      <aside class="planner-side">
+        <h3>Your Progress</h3><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div id="progressText">Step 1 of 9</div>
+        <div class="step-list" id="stepList"></div>
+        <button class="btn btn-light" id="clearPlan" style="margin-top:20px;width:100%"><i class="fa-solid fa-trash"></i> Clear Saved Trip</button>
+      </aside>
+      <div>
+        <form class="planner-card" id="tripForm" novalidate>
+          <div id="plannerSteps"></div>
+          <div class="planner-actions"><button type="button" class="btn btn-dark" id="prevStep" style="visibility:hidden"><i class="fa-solid fa-arrow-left"></i> Back</button><button type="button" class="btn btn-primary" id="nextStep">Continue <i class="fa-solid fa-arrow-right"></i></button></div>
+          <div class="saved-note" id="savedNote">Your plan saves automatically on this device.</div>
+        </form>
+        <div class="loader" id="loader"><div class="spinner"></div><h3 style="margin-top:15px">Building your Nepal journey…</h3><p class="lead">Balancing routes, nights, activities and estimated costs.</p></div>
+        <section class="report" id="report"></section>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="visa">
+  <div class="container">
+    <div class="visa-box reveal">
+      <div><span class="eyebrow">Visa and permit guidance</span><h2>Arrive Prepared</h2><p class="lead">We can help travelers understand the visa-on-arrival process, document preparation, passport validity guidance, visa extension information, trekking and restricted-area permits, national park permits, insurance guidance, airport arrival support and lawful itinerary documentation.</p>
+      <p><strong>Important:</strong> Visa, entry, and permit requirements can change. Final approval and entry decisions are made by Nepal’s immigration and government authorities. Travelers should verify current requirements before departure.</p>
+      <a class="btn btn-primary" href="#planner" onclick="setVisaInterest()">Request Visa Guidance</a></div>
+      <div><div class="check-list">
+        <div>✓ Visa-on-arrival overview</div><div>✓ Document checklist</div><div>✓ Passport validity guidance</div><div>✓ Trekking permits</div><div>✓ Restricted-area permits</div><div>✓ National park permits</div><div>✓ Insurance guidance</div><div>✓ Airport support</div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-head reveal"><div><span class="eyebrow">Why choose us</span><h2>Local Planning, Your Way</h2></div><p class="lead">From early inspiration to the final quotation, we coordinate the details that turn your ideas into a practical Nepal journey.</p></div>
+    <div class="grid trust-grid" id="trustGrid"></div>
+    <div style="margin-top:48px"><h3 style="font-size:2rem;margin-bottom:18px">Sample Testimonials</h3><p class="lead">Demo content for layout preview. Replace with verified customer reviews before launch.</p><div class="grid testimonial-wrap" id="testimonialGrid"></div></div>
+  </div>
+</section>
+
+<section class="section alt" id="faq">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Frequently asked questions</span><h2>Before You Plan</h2></div></div>
+    <div class="faq" id="faqList"></div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow">Contact us</span><h2>Let's Finalize Your Nepal Trip</h2></div><p class="lead">Use WhatsApp or email now, or request your preferred contact method.</p></div>
+    <div class="grid contact-grid">
+      <div class="card contact-panel">
+        <h3>Mrsl Travel Nepal</h3>
+        <div class="contact-list">
+          <!-- REPLACE DEMO ADDRESS, PHONE, EMAIL AND SOCIAL LINKS BELOW -->
+          <div class="contact-row"><i class="fa-solid fa-location-dot"></i><div>Demo Address, Kathmandu, Nepal</div></div>
+          <div class="contact-row"><i class="fa-brands fa-whatsapp"></i><div>+977 9800000000</div></div>
+          <div class="contact-row"><i class="fa-solid fa-envelope"></i><div>travel@mrslnepal.com</div></div>
+          <div class="contact-row"><i class="fa-solid fa-phone"></i><div>+977 1 4000000</div></div>
+          <div class="contact-row"><i class="fa-solid fa-clock"></i><div>Sun–Fri, 9:00 AM–6:00 PM (Nepal Time)</div></div>
+        </div>
+        <div class="socials" style="margin-top:18px"><a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a><a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a></div>
+      </div>
+      <div class="card contact-panel">
+        <h3>Request Preferred Contact</h3>
+        <form id="contactForm">
+          <div class="form-grid"><div><label>Name</label><input name="contactName" required></div><div><label>Contact details</label><input name="contactDetails" required placeholder="Email, phone or WhatsApp"></div><div><label>Preferred method</label><select name="contactMethod"><option>WhatsApp</option><option>Email</option><option>Phone call</option><option>Video call</option></select></div><div><label>Best contact time</label><input name="bestTime" placeholder="e.g. 7 PM"></div><div><label>Time zone</label><input name="timezone" placeholder="e.g. GMT+5:45"></div><div><label>Message</label><input name="contactMessage" placeholder="How can we help?"></div></div>
+          <button class="btn btn-primary" style="margin-top:16px">Create Contact Request</button>
+          <!-- FORM SERVICE: Connect Formspree, Web3Forms or Google Apps Script here for direct submissions. Current fallback opens WhatsApp. -->
+        </form>
+      </div>
+    </div>
+    <div class="contact-map" style="margin-top:24px"><div><i class="fa-solid fa-map-location-dot" style="font-size:2.5rem"></i><h3>Kathmandu, Nepal</h3><p>Map placeholder. Replace with your verified office location before launch.</p><p><strong>Emergency travel assistance:</strong> Available only for active confirmed clients under their service agreement.</p></div></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div><h2 style="font-size:1.8rem">Mrsl Travel Nepal</h2><p>Discover Nepal. Design Your Journey. Travel With Confidence.</p><p>Personalized planning for culture, trekking, wildlife, food, wellness, luxury and family travel.</p></div>
+      <div><h3>Quick Links</h3><a href="#destinations">Destinations</a><a href="#planner">Trip Planner</a><a href="#visa">Visa Guidance</a><a href="#contact">Contact</a></div>
+      <div><h3>Popular Routes</h3><a href="#trekking">Everest Base Camp</a><a href="#trekking">Annapurna Circuit</a><a href="#trekking">Langtang Valley</a><a href="#trekking">Upper Mustang</a></div>
+      <div><h3>Legal</h3><a href="#faq">Privacy-friendly design</a><a href="#faq">Terms & Conditions</a><a href="#faq">Travel Disclaimer</a><a href="#contact">Newsletter Placeholder</a></div>
+    </div>
+    <div class="copyright"><span>© 2026 Mrsl Travel Nepal. All rights reserved.</span><span>Estimated information • Verify before travel • Subject to availability</span></div>
+  </div>
+</footer>
+
+<button class="floating-plan" onclick="location.hash='planner'" aria-label="Open trip planner"><i class="fa-solid fa-route"></i></button>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-panel" id="modalPanel"></div></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+/* ==========================================================
+   MRSL TRAVEL NEPAL — SINGLE-FILE FRONTEND WEBSITE
+   Replace demo contact details and image URLs before launch.
+   Use properly licensed final images.
+   ========================================================== */
+
+const BUSINESS = {
+  whatsapp: "9779800000000", // REPLACE WITH ACTUAL BUSINESS WHATSAPP NUMBER
+  email: "travel@mrslnepal.com", // REPLACE WITH ACTUAL BUSINESS EMAIL
+  phone: "+977 1 4000000", // REPLACE WITH ACTUAL PHONE
+  address: "Demo Address, Kathmandu, Nepal" // REPLACE WITH ACTUAL ADDRESS
+};
+
+const images = {
+  kathmandu:"https://images.unsplash.com/photo-1605640840605-14ac1855827b?auto=format&fit=crop&w=1100&q=80",
+  pokhara:"https://images.unsplash.com/photo-1573980256867-465f64fdb2d7?auto=format&fit=crop&w=1100&q=80",
+  chitwan:"https://images.unsplash.com/photo-1589553416260-f586c8f1514f?auto=format&fit=crop&w=1100&q=80",
+  everest:"https://images.unsplash.com/photo-1571401835393-8c5f35328320?auto=format&fit=crop&w=1100&q=80",
+  mustang:"https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1100&q=80",
+  manang:"https://images.unsplash.com/photo-1524646432931-3f6c4b18b73e?auto=format&fit=crop&w=1100&q=80",
+  ilam:"https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1100&q=80",
+  lumbini:"https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1100&q=80",
+  rara:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1100&q=80",
+  default:"https://images.unsplash.com/photo-1521292270410-a8c4d716d518?auto=format&fit=crop&w=1100&q=80",
+  food:"https://images.unsplash.com/photo-1626776876729-bab4369a5a5a?auto=format&fit=crop&w=900&q=80",
+  culture:"https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?auto=format&fit=crop&w=900&q=80"
+};
+
+const destinations = [
+{name:"Kathmandu",region:"Hills",cats:["Cultural","Spiritual","Family","Luxury"],image:images.kathmandu,lat:27.7172,lng:85.3240,desc:"Nepal's historic capital blends sacred temples, royal squares, lively markets and Newari culture.",attractions:"Kathmandu Durbar Square, Swayambhunath, Boudhanath, Pashupatinath, Patan, Bhaktapur, Thamel",food:"Momo, Newari khaja, bara, yomari, sel roti",activities:"Heritage walks, temple tours, food tours, shopping",season:"Oct–Apr",temp:"Typical 3–29°C by season",stay:"3–5 days"},
+{name:"Pokhara",region:"Hills",cats:["Adventure","Family","Luxury"],image:images.pokhara,lat:28.2096,lng:83.9856,desc:"A relaxed lakeside city with Annapurna views, paragliding and easy access to mountain adventures.",attractions:"Phewa Lake, Sarangkot, World Peace Pagoda, Davis Falls, Gupteshwor Cave, Mountain Museum",food:"Thakali set, trout, momo, lakeside cafés",activities:"Boating, paragliding, zipline, sunrise tours",season:"Sep–May",temp:"Typical 8–31°C",stay:"3–5 days"},
+{name:"Chitwan",region:"Terai",cats:["Wildlife","Family","Adventure"],image:images.chitwan,lat:27.5291,lng:84.3542,desc:"Jungle safaris, rhino sightings, canoe rides, birdwatching and Tharu cultural experiences.",attractions:"Chitwan National Park, Rapti River, Tharu villages",food:"Tharu set, fish, local rice dishes",activities:"Jeep safari, canoeing, birdwatching, village tour",season:"Oct–Mar",temp:"Typical 10–36°C",stay:"2–4 days"},
+{name:"Solukhumbu",region:"Himalayan",cats:["Trekking","Adventure"],image:images.everest,lat:27.8069,lng:86.7140,desc:"The Everest region with Lukla, Namche Bazaar, Tengboche, Sherpa villages and high mountain trails.",attractions:"Everest Base Camp, Namche Bazaar, Tengboche, Gokyo",food:"Sherpa stew, thukpa, Tibetan bread",activities:"Trekking, mountain flights, monastery visits",season:"Mar–May, Sep–Nov",temp:"Highly altitude-dependent; often below freezing at night",stay:"12–18 days"},
+{name:"Mustang",region:"Himalayan",cats:["Trekking","Cultural","Adventure","Luxury"],image:images.mustang,lat:28.9985,lng:83.8473,desc:"A dramatic rain-shadow landscape of ancient caves, monasteries and Tibetan-influenced culture.",attractions:"Jomsom, Muktinath, Kagbeni, Lo Manthang",food:"Apples, apple brandy, buckwheat dishes, thukpa",activities:"Jeep tours, trekking, pilgrimage, photography",season:"Mar–Nov",temp:"Typical -10–22°C by altitude",stay:"5–12 days"},
+{name:"Manang",region:"Himalayan",cats:["Trekking","Adventure"],image:images.manang,lat:28.6667,lng:84.0167,desc:"A key Annapurna Circuit stop with acclimatization walks, Gangapurna Lake and access toward Tilicho.",attractions:"Manang village, Gangapurna Lake, Ice Lake, Tilicho access",food:"Tibetan bread, soups, mountain meals",activities:"Trekking, acclimatization hikes, photography",season:"Mar–May, Sep–Nov",temp:"Typical -12–18°C",stay:"3–7 days"},
+{name:"Ilam",region:"Hills",cats:["Family","Cultural","Luxury"],image:images.ilam,lat:26.9112,lng:87.9250,desc:"Eastern Nepal's green tea hills, sunrise viewpoints, homestays and peaceful rural landscapes.",attractions:"Kanyam, Antu Danda, tea gardens",food:"Ilam tea, churpi, local vegetables",activities:"Tea garden walks, sunrise, homestays",season:"Oct–May",temp:"Typical 5–25°C",stay:"2–4 days"},
+{name:"Sankhuwasabha",region:"Himalayan",cats:["Trekking","Adventure","Wildlife"],image:images.default,lat:27.3577,lng:87.1490,desc:"Gateway to Makalu-Barun National Park, remote trekking, Arun Valley and extraordinary biodiversity.",attractions:"Makalu-Barun, Arun Valley, remote villages",food:"Local millet, rice, seasonal produce",activities:"Expedition trekking, wildlife, cultural travel",season:"Mar–May, Oct–Nov",temp:"Varies from subtropical valleys to alpine cold",stay:"12–22 days"},
+{name:"Lumbini",region:"Terai",cats:["Spiritual","Cultural","Family"],image:images.lumbini,lat:27.4833,lng:83.2767,desc:"The birthplace of Buddha, with sacred gardens, monasteries and a contemplative atmosphere.",attractions:"Maya Devi Temple, monastic zone, Ashoka Pillar",food:"Terai cuisine, vegetarian meals",activities:"Pilgrimage, cycling, meditation",season:"Oct–Mar",temp:"Typical 10–38°C",stay:"1–3 days"},
+{name:"Bandipur",region:"Hills",cats:["Cultural","Family","Luxury"],image:images.default,lat:27.9374,lng:84.4060,desc:"A preserved hill town known for traditional architecture, mountain views and relaxed streets.",attractions:"Old bazaar, viewpoints, caves",food:"Newari and hill cuisine",activities:"Heritage walks, village stays, sunrise",season:"Oct–May",temp:"Typical 8–28°C",stay:"1–3 days"},
+{name:"Gorkha",region:"Hills",cats:["Cultural","Adventure"],image:images.default,lat:28.0000,lng:84.6333,desc:"A historic kingdom with palace heritage, hill views and access toward Manaslu.",attractions:"Gorkha Durbar, museum, temples",food:"Dal bhat, local hill food",activities:"History tours, hiking",season:"Oct–Apr",temp:"Typical 8–30°C",stay:"1–2 days"},
+{name:"Janakpur",region:"Terai",cats:["Spiritual","Cultural","Family"],image:images.default,lat:26.7288,lng:85.9250,desc:"A colorful spiritual city celebrated for Janaki Temple, Mithila art and festivals.",attractions:"Janaki Temple, ponds, Mithila galleries",food:"Mithila cuisine, sweets, lassi",activities:"Temple tours, art and festival visits",season:"Oct–Mar",temp:"Typical 10–39°C",stay:"1–2 days"},
+{name:"Bardia",region:"Terai",cats:["Wildlife","Adventure"],image:images.chitwan,lat:28.3860,lng:81.5050,desc:"A quieter safari destination offering forests, river landscapes and chances to see rare wildlife.",attractions:"Bardia National Park, Karnali River",food:"Tharu food, local fish",activities:"Jeep safari, walking safari, rafting",season:"Oct–Apr",temp:"Typical 9–40°C",stay:"3–5 days"},
+{name:"Rara Lake",region:"Himalayan",cats:["Adventure","Trekking","Family"],image:images.rara,lat:29.5237,lng:82.0781,desc:"A remote blue alpine lake surrounded by forests and Himalayan wilderness.",attractions:"Rara National Park, lake viewpoints",food:"Simple lodge meals, local grains",activities:"Trekking, boating where permitted, photography",season:"Apr–Jun, Sep–Oct",temp:"Typical -8–20°C",stay:"4–8 days"},
+{name:"Langtang",region:"Himalayan",cats:["Trekking","Cultural"],image:images.everest,lat:28.2111,lng:85.5667,desc:"A rewarding mountain valley close to Kathmandu with Tamang culture and alpine scenery.",attractions:"Kyanjin Gompa, Langtang village, glaciers",food:"Yak cheese, Tibetan bread",activities:"Trekking, monastery visits",season:"Mar–May, Sep–Nov",temp:"Typical -10–18°C",stay:"7–10 days"},
+{name:"Dolpo",region:"Himalayan",cats:["Trekking","Adventure","Cultural"],image:images.mustang,lat:29.1000,lng:82.9000,desc:"A remote trans-Himalayan region of high passes, ancient monasteries and Shey Phoksundo Lake.",attractions:"Shey Phoksundo, ancient gompas, high passes",food:"Tsampa, butter tea, mountain staples",activities:"Expedition trekking, culture, photography",season:"May–Oct",temp:"Often cold; altitude-dependent",stay:"15–25 days"},
+{name:"Dhulikhel",region:"Hills",cats:["Family","Luxury","Spiritual"],image:images.default,lat:27.6221,lng:85.5420,desc:"A peaceful hill escape with Himalayan views, temples, resorts and nearby village walks.",attractions:"Viewpoints, Namobuddha, old town",food:"Newari and resort cuisine",activities:"Sunrise, hiking, wellness",season:"Oct–May",temp:"Typical 6–27°C",stay:"1–2 days"},
+{name:"Nagarkot",region:"Hills",cats:["Family","Luxury","Photography"],image:images.default,lat:27.7172,lng:85.5200,desc:"A popular ridge retreat for sunrise, mountain panoramas and short hikes near Kathmandu.",attractions:"View tower, trails, mountain views",food:"Hotel and local hill cuisine",activities:"Sunrise, hiking, relaxation",season:"Oct–May",temp:"Typical 5–25°C",stay:"1–2 days"},
+{name:"Tansen",region:"Hills",cats:["Cultural","Family"],image:images.default,lat:27.8673,lng:83.5467,desc:"A historic hill town with winding lanes, Newari architecture and wide views.",attractions:"Srinagar Hill, old bazaar, Rani Mahal",food:"Chukauni, local Newari food",activities:"Heritage walks, viewpoints",season:"Oct–Apr",temp:"Typical 8–30°C",stay:"1–2 days"},
+{name:"Bhaktapur",region:"Hills",cats:["Cultural","Spiritual","Family"],image:images.kathmandu,lat:27.6710,lng:85.4298,desc:"A beautifully preserved medieval city filled with squares, temples, pottery and living heritage.",attractions:"Durbar Square, Nyatapola, pottery square",food:"Juju dhau, bara, Newari feasts",activities:"Architecture, crafts, food tasting",season:"Oct–Apr",temp:"Typical 4–29°C",stay:"1–2 days"},
+{name:"Patan",region:"Hills",cats:["Cultural","Spiritual","Family"],image:images.kathmandu,lat:27.6644,lng:85.3188,desc:"An artistic city of courtyards, metalwork, temples and a celebrated royal square.",attractions:"Patan Durbar Square, Golden Temple, workshops",food:"Newari khaja, yomari, bara",activities:"Museum, craft tours, food walks",season:"Oct–Apr",temp:"Typical 4–29°C",stay:"1–2 days"}
+];
+
+const treks = [
+["Everest Base Camp Trek",14,"Challenging","5,364 m","Lukla","Lukla","Sagarmatha permit, local fees","Mar–May, Sep–Nov","5–15°C","-15–0°C","Strong","Teahouse","USD 1,400–2,600","Everest views, Sherpa culture, Namche, Tengboche"],
+["Annapurna Base Camp Trek",10,"Moderate","4,130 m","Pokhara","Pokhara","ACAP, applicable trekking registration","Mar–May, Sep–Nov","8–20°C","-8–5°C","Good","Teahouse","USD 800–1,500","Annapurna Sanctuary, villages, hot springs"],
+["Annapurna Circuit",15,"Challenging","5,416 m","Besisahar","Jomsom/Pokhara","ACAP, applicable trekking registration","Mar–May, Sep–Nov","5–18°C","-15–2°C","Strong","Teahouse","USD 1,100–2,000","Thorong La, Manang, varied landscapes"],
+["Manaslu Circuit",16,"Difficult","5,106 m","Machha Khola","Dharapani","Restricted permit, MCAP, ACAP","Mar–May, Sep–Nov","5–17°C","-15–0°C","Strong","Teahouse","USD 1,400–2,500","Remote villages, Larkya La, Manaslu"],
+["Langtang Valley Trek",8,"Moderate","4,984 m","Syabrubesi","Syabrubesi","Langtang National Park, applicable registration","Mar–May, Sep–Nov","7–18°C","-8–3°C","Good","Teahouse","USD 650–1,200","Tamang culture, Kyanjin, glaciers"],
+["Upper Mustang Trek",14,"Difficult","4,200 m","Jomsom","Jomsom","Restricted permit, ACAP","Mar–Nov","8–20°C","-8–4°C","Strong","Teahouse","USD 2,200–4,000","Lo Manthang, caves, desert landscape"],
+["Mardi Himal Trek",6,"Moderate","4,500 m","Pokhara","Pokhara","ACAP, applicable registration","Mar–May, Sep–Nov","8–18°C","-7–4°C","Good","Teahouse","USD 500–950","Ridge walks, Machhapuchhre views"],
+["Ghorepani Poon Hill Trek",5,"Easy","3,210 m","Pokhara","Pokhara","ACAP, applicable registration","Mar–May, Sep–Nov","10–22°C","0–8°C","Average","Teahouse","USD 400–750","Sunrise, rhododendrons, villages"],
+["Kanchenjunga Base Camp Trek",22,"Extreme","5,143 m","Taplejung","Taplejung","Restricted permit, conservation permit","Mar–May, Oct–Nov","4–16°C","-18–0°C","Excellent","Basic teahouse/camping","USD 2,300–4,500","Remote wilderness, Kanchenjunga massif"],
+["Makalu Base Camp Trek",20,"Extreme","5,000 m","Tumlingtar","Tumlingtar","National park and applicable permits","Mar–May, Oct–Nov","4–16°C","-18–0°C","Excellent","Camping/basic lodges","USD 2,400–4,600","Makalu-Barun, Arun Valley, isolation"],
+["Rara Lake Trek",9,"Moderate","3,691 m","Talcha/Jumla","Talcha/Jumla","Rara National Park permit","Apr–Jun, Sep–Oct","8–20°C","-5–5°C","Good","Basic lodge/camping","USD 900–1,700","Nepal's largest lake, forests"],
+["Dolpo Trek",20,"Extreme","5,360 m","Juphal","Juphal","Restricted permit, national park permit","May–Oct","4–17°C","-18–0°C","Excellent","Camping/basic lodges","USD 3,000–5,500","Shey Phoksundo, ancient culture"],
+["Gokyo Lakes Trek",14,"Challenging","5,357 m","Lukla","Lukla","Sagarmatha permit, local fees","Mar–May, Sep–Nov","5–15°C","-15–0°C","Strong","Teahouse","USD 1,500–2,800","Turquoise lakes, Gokyo Ri, Everest"],
+["Helambu Trek",6,"Easy","3,650 m","Sundarijal","Melamchi","National park permit","Mar–May, Sep–Nov","10–20°C","0–8°C","Average","Teahouse","USD 450–850","Sherpa and Tamang villages, forests"]
+].map((t,i)=>({id:i,name:t[0],duration:t[1],difficulty:t[2],altitude:t[3],start:t[4],end:t[5],permits:t[6],months:t[7],dayTemp:t[8],nightTemp:t[9],fitness:t[10],stay:t[11],cost:t[12],highlights:t[13]}));
+
+const climate = {
+Spring:[["Kathmandu","12–27°C","fa-sun"],["Pokhara","15–30°C","fa-cloud-sun"],["Chitwan","20–34°C","fa-sun"],["Everest region","-10–12°C","fa-snowflake"],["Mustang","2–18°C","fa-wind"],["Manang","-4–15°C","fa-mountain"],["Ilam","11–24°C","fa-cloud-sun"],["Sankhuwasabha","10–24°C valleys","fa-cloud"]],
+Monsoon:[["Kathmandu","20–30°C","fa-cloud-rain"],["Pokhara","22–31°C","fa-cloud-showers-heavy"],["Chitwan","25–35°C","fa-cloud-rain"],["Everest region","0–14°C","fa-cloud"],["Mustang","8–22°C","fa-wind"],["Manang","5–19°C","fa-cloud"],["Ilam","18–27°C","fa-cloud-showers-heavy"],["Sankhuwasabha","18–28°C valleys","fa-cloud-rain"]],
+Autumn:[["Kathmandu","10–26°C","fa-sun"],["Pokhara","13–28°C","fa-sun"],["Chitwan","18–31°C","fa-sun"],["Everest region","-12–10°C","fa-snowflake"],["Mustang","0–18°C","fa-wind"],["Manang","-6–14°C","fa-mountain"],["Ilam","10–23°C","fa-cloud-sun"],["Sankhuwasabha","9–23°C valleys","fa-sun"]],
+Winter:[["Kathmandu","3–20°C","fa-cloud-sun"],["Pokhara","8–22°C","fa-cloud-sun"],["Chitwan","10–25°C","fa-sun"],["Everest region","-22–2°C","fa-snowflake"],["Mustang","-12–8°C","fa-wind"],["Manang","-18–5°C","fa-snowflake"],["Ilam","5–18°C","fa-cloud"],["Sankhuwasabha","3–18°C valleys","fa-cloud-sun"]]
+};
+
+const cultures = [
+["Newari Heritage","Kathmandu Valley","Courtyards, woodcarving, masked dances and feast traditions.",images.kathmandu],
+["Sherpa Culture","Everest Region","Mountain hospitality, monasteries and living Himalayan traditions.",images.everest],
+["Tharu Culture","Chitwan & Terai","Village life, dance, architecture and deep knowledge of the plains.",images.chitwan],
+["Mithila Art","Janakpur","Bold folk art, sacred stories, music and colorful celebrations.",images.culture],
+["Himalayan Monasteries","Mountain regions","Prayer flags, butter lamps, meditation and ancient Buddhist art.",images.mustang],
+["Gurung & Magar Traditions","Central hills","Community life, folk music, dances and mountain heritage.",images.default],
+["Rai & Limbu Culture","Eastern Nepal","Oral traditions, indigenous foodways and vibrant celebrations.",images.ilam],
+["Village Lifestyles","Across Nepal","Homestays, farming, local crafts and everyday hospitality.",images.default]
+].map(x=>({name:x[0],where:x[1],desc:x[2],image:x[3]}));
+
+const festivals = [
+["Dashain","Family blessings and victory of good","Nationwide","Sep–Oct","Respect family rituals; transport can be busy"],
+["Tihar","Festival of lights honoring animals and relationships","Nationwide","Oct–Nov","Enjoy lights, rangoli and music respectfully"],
+["Holi","Festival of colors","Kathmandu and Terai","Feb–Mar","Protect eyes and electronics; ask before applying color"],
+["Indra Jatra","Chariot processions and masked dances","Kathmandu","Aug–Sep","Expect crowds around Durbar Square"],
+["Bisket Jatra","New Year chariots and community ritual","Bhaktapur","Apr","Follow local safety instructions"],
+["Buddha Jayanti","Celebration of Buddha's birth","Lumbini and Buddhist sites","Apr–May","Dress modestly at sacred locations"],
+["Teej","Women's festival of devotion and celebration","Nationwide","Aug–Sep","Observe temple etiquette"],
+["Chhath","Sun worship at rivers and ponds","Terai","Oct–Nov","Avoid disturbing prayer areas"],
+["Mani Rimdu","Sherpa Buddhist masked festival","Everest monasteries","Oct–Nov","Dates vary by lunar calendar"],
+["Losar","Himalayan New Year traditions","Mountain communities","Varies","Confirm local dates"],
+["Gai Jatra","Processions remembering the departed","Kathmandu Valley","Aug","Be respectful of its memorial meaning"],
+["Maghe Sankranti","Winter harvest and seasonal foods","Nationwide","Jan","Try traditional sesame and yam dishes"]
+].map(x=>({name:x[0],meaning:x[1],where:x[2],season:x[3],tip:x[4]}));
+
+const foods = [
+["Momo","Nationwide","Dumpling wrappers, vegetables or meat","Both","Medium","Kathmandu, Pokhara, everywhere","Street food"],
+["Dal Bhat","Nationwide","Rice, lentils, vegetables, pickles","Vegetarian","Medium","Homes, lodges and restaurants","Traditional meal"],
+["Newari Khaja Set","Newari","Beaten rice, beans, meats, pickles","Both","Spicy","Kathmandu Valley","Newari"],
+["Yomari","Newari","Rice flour, molasses and sesame","Vegetarian","Mild","Kathmandu Valley","Dessert"],
+["Sel Roti","Nationwide","Rice flour, sugar, spices","Vegetarian","Mild","Festivals and tea shops","Dessert"],
+["Thukpa","Himalayan","Noodles, broth, vegetables or meat","Both","Medium","Mountain towns","Mountain food"],
+["Gundruk","Hills","Fermented leafy greens","Vegetarian","Medium","Local restaurants","Traditional meal"],
+["Dhido","Hills","Millet or buckwheat flour","Vegetarian","Mild","Hill and mountain regions","Traditional meal"],
+["Chatamari","Newari","Rice crepe with toppings","Both","Medium","Kathmandu Valley","Newari"],
+["Bara","Newari","Lentil pancake","Vegetarian","Medium","Newari eateries","Street food"],
+["Sekuwa","Nationwide","Spiced grilled meat","Non-vegetarian","Spicy","Kathmandu and highway towns","Street food"],
+["Thakali Set","Mustang/Thakali","Rice, lentils, curry, greens, pickle","Both","Medium","Pokhara, Kathmandu, Mustang","Thakali"],
+["Juju Dhau","Bhaktapur","Sweet creamy yogurt","Vegetarian","Mild","Bhaktapur","Dessert"],
+["Laphing","Tibetan-influenced","Cold starch noodles and chili sauce","Vegetarian","Very spicy","Boudha and Kathmandu","Street food"],
+["Kheer","Nationwide","Rice, milk, sugar, spices","Vegetarian","Mild","Homes and restaurants","Dessert"],
+["Chhurpi","Himalayan","Hardened or soft yak/cow cheese","Vegetarian","Mild","Eastern and mountain regions","Mountain food"],
+["Aloo Tama","Newari/Nepali","Potato, bamboo shoot, beans","Vegetarian","Medium","Kathmandu Valley","Traditional meal"],
+["Kwati","Newari","Mixed sprouted bean soup","Vegetarian","Medium","Kathmandu Valley","Newari"],
+["Tibetan Bread","Himalayan","Flour, water, oil","Vegetarian","Mild","Mountain lodges","Mountain food"],
+["Yak Cheese","Himalayan","Yak milk cheese","Vegetarian","Mild","Langtang and mountain areas","Mountain food"],
+["Ilam Tea","Eastern Nepal","Black or green tea leaves","Vegetarian","Mild","Ilam and tea shops","Traditional meal"],
+["Mustang Apples","Mustang","Fresh apples and products","Vegetarian","Mild","Jomsom, Marpha, Mustang","Dessert"]
+].map((x,i)=>({name:x[0],community:x[1],ingredients:x[2],diet:x[3],spice:x[4],where:x[5],type:x[6],image:i%3===0?images.food:(i%3===1?images.default:images.culture)}));
+
+const activities = [
+["Trekking","Himalayan regions","5–20 days","USD 400–5,000","Spring/Autumn","Moderate–Extreme","Older children on suitable routes","fa-person-hiking"],
+["Mountain Flight","Kathmandu","1 hour","USD 200–300","Clear months","Easy","Family-friendly","fa-plane"],
+["Helicopter Tour","Everest/Annapurna","3–5 hours","USD 900–5,000+","Clear months","Easy","Age/health dependent","fa-helicopter"],
+["Jungle Safari","Chitwan/Bardia","2–4 hours","USD 40–150","Oct–Apr","Easy","Family-friendly","fa-paw"],
+["Paragliding","Pokhara","20–45 min","USD 70–130","Sep–May","Moderate","Minimum age applies","fa-parachute-box"],
+["Rafting","Trishuli/Bhote Koshi","1–3 days","USD 45–220","Spring/Autumn","Moderate–High","Route dependent","fa-water"],
+["Bungee Jumping","Kushma/Bhote Koshi","Half day","USD 80–150","Most dry months","High","Not for young children","fa-person-falling"],
+["Ziplining","Pokhara","2–3 hours","USD 60–110","Sep–May","Moderate","Minimum limits apply","fa-bolt"],
+["Mountain Biking","Kathmandu/Pokhara/Mustang","1–8 days","USD 40–800","Oct–May","Moderate–High","Family routes available","fa-bicycle"],
+["Boating","Pokhara/Rara","1–3 hours","USD 5–40","Most months","Easy","Family-friendly","fa-sailboat"],
+["Meditation Retreat","Kathmandu/Lumbini","1–10 days","USD 30–1,000","Year-round","Gentle","Older children by program","fa-spa"],
+["Heritage Walk","Kathmandu Valley","2–6 hours","USD 20–100","Oct–Apr","Easy","Family-friendly","fa-landmark"],
+["Food Tour","Kathmandu/Pokhara","3–5 hours","USD 30–90","Year-round","Easy","Family-friendly","fa-utensils"],
+["Village Homestay","Bandipur/Ghale Gaun/Ilam","1–4 nights","USD 25–100/night","Most months","Easy","Family-friendly","fa-house"],
+["Photography Tour","Nationwide","Half day–10 days","USD 50–2,000","Season dependent","Easy–High","Family options","fa-camera"],
+["Tea Garden Visit","Ilam","Half–full day","USD 10–80","Oct–May","Easy","Family-friendly","fa-leaf"]
+].map((x,i)=>({name:x[0],location:x[1],duration:x[2],price:x[3],season:x[4],intensity:x[5],family:x[6],icon:x[7],id:i}));
+
+const trust = ["Personalized planning","Local knowledge","Flexible itineraries","Transparent estimates","Visa guidance","Trekking support","Hotel coordination","Local guides","WhatsApp support","Custom quotations"];
+
+const faq = [
+["Can I plan a Nepal trip without paying?","Yes. The website planner is free to use. Final services and bookings are quoted separately."],
+["Is the generated budget final?","No. It is a preliminary estimate based on static planning assumptions. Final prices depend on dates, availability, group size, permits, route conditions and service choices."],
+["Can you customize my itinerary?","Yes. Send the generated plan through WhatsApp or email and we can refine it."],
+["Do you arrange airport pickup?","Airport pickup can be included in a final quotation, subject to confirmation."],
+["Can you help with hotels and transport?","Yes. We can coordinate suitable accommodation and transportation based on your preferences."],
+["Do you assist with trekking permits?","We can guide and coordinate applicable permit requirements. Rules may change and must be verified."],
+["Can you help with visa guidance?","We provide general travel and documentation guidance, but immigration authorities make all visa and entry decisions."],
+["Is Nepal safe for solo travelers?","Many solo travelers visit Nepal, but safety depends on route, season and preparation. Use licensed providers, share plans and follow current official advice."],
+["Can families travel with children?","Yes. We can prioritize family-friendly destinations, shorter transfers and suitable activities."],
+["Can senior travelers use the service?","Yes. Please describe mobility, medical and pace needs so the route can be adapted."],
+["Do you arrange luxury trips?","Yes. Premium hotels, private vehicles, curated guides and helicopter services can be considered."],
+["Do you arrange budget trips?","Yes. Guesthouses, local meals and tourist buses can reduce costs."],
+["Can I contact you through WhatsApp?","Yes. The report creates an encoded WhatsApp quotation request."],
+["How do I receive my final quotation?","Send your plan through WhatsApp, Gmail or email. The team can then verify availability and prepare a final quotation."],
+["Do I need to create an account?","No. The planner works without login or registration."],
+["Can I download my plan?","Yes. You can print or generate a PDF from the report."]
+];
+
+const plannerSteps = [
+{title:"Basic Details",html:`
+  <div class="form-grid">
+    <div><label>Full name *</label><input name="fullName" required></div>
+    <div><label>Country *</label><input name="country" required></div>
+    <div><label>Email *</label><input name="email" type="email" required></div>
+    <div><label>WhatsApp number</label><input name="whatsapp" placeholder="+country code"></div>
+    <div><label>Adults</label><input name="adults" type="number" min="1" value="2"></div>
+    <div><label>Children</label><input name="children" type="number" min="0" value="0"></div>
+    <div><label>Travel days *</label><input name="days" type="number" min="2" max="60" value="10" required></div>
+    <div><label>Arrival date or month</label><input name="arrival" placeholder="e.g. October 2026"></div>
+    <div><label>Preferred travel pace</label><select name="pace"><option>Relaxed</option><option selected>Balanced</option><option>Active</option><option>Very active</option></select></div>
+  </div>`},
+{title:"Type of Trip",html:`<div class="choice-grid">${["Cultural","Trekking","Wildlife","Adventure","Family","Honeymoon","Luxury","Budget","Spiritual","Photography","Food","Wellness","Village experience","Mountain experience"].map(x=>choice("tripTypes",x)).join("")}</div>`},
+{title:"Destinations",html:`<div class="choice-grid" id="plannerDestinations">${["Kathmandu","Pokhara","Chitwan","Solukhumbu","Mustang","Manang","Ilam","Sankhuwasabha","Lumbini","Bardia","Rara Lake","Langtang","Bandipur","Janakpur","Recommend destinations for me"].map(x=>choice("selectedDestinations",x)).join("")}</div>`},
+{title:"Accommodation",html:`<div class="choice-grid">${["Budget hostel","Local guesthouse","Homestay","Standard hotel","Three-star hotel","Four-star hotel","Five-star hotel","Luxury resort","Mountain lodge","Mixed accommodation"].map(x=>radioChoice("accommodation",x)).join("")}</div>`},
+{title:"Transportation",html:`<div class="choice-grid">${["Tourist bus","Private car","Private jeep","Domestic flight","Motorcycle","Luxury vehicle","Mixed transport"].map(x=>radioChoice("transportation",x)).join("")}</div>`},
+{title:"Activities",html:`<div class="choice-grid">${["Trekking","Safari","Paragliding","Rafting","Cultural tours","Food tours","Mountain flight","Helicopter tour","Boating","Spiritual tour","Adventure sports","Photography","Village stay","Wellness retreat"].map(x=>choice("selectedActivities",x)).join("")}</div>`},
+{title:"Budget",html:`<div class="form-grid"><div><label>Travel budget style</label><select name="budgetStyle"><option>Economy</option><option selected>Standard</option><option>Comfort</option><option>Premium</option><option>Luxury</option><option>Custom budget</option></select></div><div><label>Preferred currency</label><select name="currency"><option>USD</option><option>EUR</option><option>GBP</option><option>AUD</option><option>CAD</option><option>INR</option><option>NPR</option></select></div><div><label>Custom total budget (optional)</label><input name="customBudget" type="number" min="0"></div></div><p class="lead">Demo exchange rates are used for planning only. <!-- CURRENCY API: connect a live verified exchange-rate provider here later. --></p>`},
+{title:"Visa Assistance",html:`<div class="choice-grid">${["Nepal visa guidance","Visa-on-arrival information","Document preparation guidance","Trekking permits","Airport pickup"].map(x=>choice("visaNeeds",x)).join("")}</div><p class="lead"><strong>Disclaimer:</strong> Mrsl Travel Nepal provides travel and documentation guidance. Visa approval is decided only by the relevant government and immigration authorities.</p>`},
+{title:"Special Requests",html:`<label>Tell us anything important</label><textarea name="specialRequests" placeholder="Dietary restrictions, mobility assistance, medical considerations, celebration, anniversary, honeymoon, child or senior needs, room preferences, destination requests..."></textarea>`}
+];
+
+function choice(name,value){return `<label class="choice"><input type="checkbox" name="${name}" value="${value}">${value}</label>`}
+function radioChoice(name,value){return `<label class="choice"><input type="radio" name="${name}" value="${value}">${value}</label>`}
+
+let currentStep=0, selectedTreks=[], currentReport=null;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2800)}
+function esc(s=""){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+function renderDestinations(list=destinations){
+  $("#destinationGrid").innerHTML=list.map((d,i)=>`<article class="card dest-card reveal visible">
+    <div class="media"><img loading="lazy" src="${d.image}" alt="${d.name}, Nepal" onerror="this.src='${images.default}'"><span class="badge">${d.region}</span></div>
+    <div class="dest-body"><h3>${d.name}</h3><p class="lead">${d.desc}</p>
+    <div class="dest-meta"><span><i class="fa-solid fa-calendar"></i> ${d.season}</span><span><i class="fa-solid fa-temperature-half"></i> ${d.temp}</span><span><i class="fa-solid fa-moon"></i> ${d.stay}</span></div>
+    <div class="dest-actions"><button class="btn btn-dark" onclick="openDestination(${destinations.indexOf(d)})">Explore Details</button><button class="btn btn-primary" onclick="addDestination('${d.name.replace(/'/g,"\\'")}')">Add to Trip</button></div></div></article>`).join("");
+}
+const filterCats=["All","Himalayan","Hills","Terai","Cultural","Adventure","Wildlife","Spiritual","Luxury","Family","Trekking"];
+$("#destFilters").innerHTML=filterCats.map((f,i)=>`<button class="chip ${i===0?"active":""}" data-filter="${f}">${f}</button>`).join("");
+$("#destFilters").addEventListener("click",e=>{if(!e.target.matches("button"))return;$$("#destFilters .chip").forEach(x=>x.classList.remove("active"));e.target.classList.add("active");filterDestinations()});
+$("#destinationSearch").addEventListener("input",filterDestinations);
+function filterDestinations(){
+  const q=$("#destinationSearch").value.toLowerCase(), f=$("#destFilters .active").dataset.filter;
+  renderDestinations(destinations.filter(d=>(f==="All"||d.region===f||d.cats.includes(f))&&JSON.stringify(d).toLowerCase().includes(q)));
+}
+function openDestination(i){
+  const d=destinations[i];
+  $("#modalPanel").innerHTML=`<div class="modal-cover"><img src="${d.image}" alt="${d.name}"><button class="modal-close" onclick="closeModal()">✕</button></div><div class="modal-content"><span class="tag">${d.region}</span><h2 id="modalTitle" style="margin:10px 0">${d.name}</h2><p class="lead">${d.desc}</p><div class="modal-facts"><div class="fact"><small>Best season</small><strong>${d.season}</strong></div><div class="fact"><small>Typical temperature</small><strong>${d.temp}</strong></div><div class="fact"><small>Suggested stay</small><strong>${d.stay}</strong></div></div><h3 style="margin-top:22px">Highlights</h3><p>${d.attractions}</p><h3>Food</h3><p>${d.food}</p><h3>Activities</h3><p>${d.activities}</p><p class="lead">Information is approximate. Verify weather, road, flight, altitude and permit conditions before travel.</p><button class="btn btn-primary" onclick="addDestination('${d.name.replace(/'/g,"\\'")}');closeModal()">Add ${d.name} to Trip</button></div>`;
+  $("#modal").classList.add("show");
+}
+function closeModal(){$("#modal").classList.remove("show")}
+$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+
+function renderTreks(){
+  const levels={Easy:25,Moderate:42,Challenging:60,Difficult:78,Extreme:100};
+  $("#trekGrid").innerHTML=treks.map(t=>`<article class="card trek-card reveal"><span class="tag">${t.difficulty}</span><h3 style="margin-top:10px">${t.name}</h3><div class="difficulty"><span style="width:${levels[t.difficulty]}%"></span></div>
+    <div class="trek-stats"><div class="trek-stat"><b>${t.duration} days</b><br>Duration</div><div class="trek-stat"><b>${t.altitude}</b><br>Max altitude</div><div class="trek-stat"><b>${t.start}</b><br>Start</div><div class="trek-stat"><b>${t.cost}</b><br>Estimate</div></div>
+    <p><b>Permits:</b> ${t.permits}</p><p><b>Best months:</b> ${t.months}</p><p><b>Typical day/night:</b> ${t.dayTemp} / ${t.nightTemp}</p><p><b>Highlights:</b> ${t.highlights}</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-primary" onclick="addTrek(${t.id})">Add Trek to Plan</button><label class="chip"><input type="checkbox" onchange="toggleCompare(${t.id},this.checked)" style="width:auto"> Compare</label></div></article>`).join("");
+}
+function toggleCompare(id,on){if(on&&selectedTreks.length>=3){event.target.checked=false;return toast("Compare up to three routes.");}selectedTreks=on?[...selectedTreks,id]:selectedTreks.filter(x=>x!==id);$("#compareBar").classList.toggle("show",selectedTreks.length>0);$("#compareText").textContent=selectedTreks.length?treks.filter(t=>selectedTreks.includes(t.id)).map(t=>t.name).join(" • "):"Select up to three treks to compare."}
+$("#compareBtn").onclick=()=>{const ts=treks.filter(t=>selectedTreks.includes(t.id));$("#modalPanel").innerHTML=`<div class="modal-content"><button class="modal-close" onclick="closeModal()">✕</button><h2 id="modalTitle">Trek Comparison</h2><div style="overflow:auto"><table><tr><th>Route</th><th>Days</th><th>Difficulty</th><th>Altitude</th><th>Permits</th><th>Estimate</th></tr>${ts.map(t=>`<tr><td>${t.name}</td><td>${t.duration}</td><td>${t.difficulty}</td><td>${t.altitude}</td><td>${t.permits}</td><td>${t.cost}</td></tr>`).join("")}</table></div></div>`;$("#modal").classList.add("show")};
+
+function renderClimate(season="Spring"){$("#climateGrid").innerHTML=climate[season].map(x=>`<div class="card climate-card reveal visible"><i class="fa-solid ${x[2]}"></i><h3 style="margin:12px 0">${x[0]}</h3><strong>${x[1]}</strong><p class="lead">${season} typical estimate</p></div>`).join("")}
+$$(".season-btn").forEach(b=>b.onclick=()=>{$$(".season-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderClimate(b.dataset.season)});
+
+$("#cultureGrid").innerHTML=cultures.map(c=>`<article class="card image-card reveal"><img loading="lazy" src="${c.image}" alt="${c.name}"><div class="content"><span class="tag">${c.where}</span><h3>${c.name}</h3><p>${c.desc}</p></div></article>`).join("");
+$("#festivalGrid").innerHTML=festivals.slice(0,8).map(f=>`<article class="card" style="padding:19px"><span class="tag">${f.season}</span><h3 style="margin:10px 0">${f.name}</h3><p><b>Meaning:</b> ${f.meaning}</p><p><b>Where:</b> ${f.where}</p><p class="lead">${f.tip}</p></article>`).join("");
+
+const foodCats=["All","Vegetarian","Non-vegetarian","Street food","Traditional meal","Dessert","Mountain food","Newari","Thakali"];
+$("#foodFilters").innerHTML=foodCats.map((x,i)=>`<button class="chip ${i===0?"active":""}" data-food="${x}">${x}</button>`).join("");
+function renderFood(cat="All"){$("#foodGrid").innerHTML=foods.filter(f=>cat==="All"||f.diet===cat||f.type===cat||f.community===cat||(cat==="Vegetarian"&&f.diet==="Both")).map(f=>`<article class="card food-card reveal visible"><div class="media"><img loading="lazy" src="${f.image}" alt="${f.name}"></div><div class="content"><div style="display:flex;justify-content:space-between;gap:8px"><h3>${f.name}</h3><span class="tag">${f.diet}</span></div><p><b>${f.community}</b> • ${f.type}</p><p class="lead">${f.ingredients}. Spice: ${f.spice}. Try in ${f.where}.</p></div></article>`).join("")}
+$("#foodFilters").onclick=e=>{if(!e.target.matches("button"))return;$$("#foodFilters .chip").forEach(x=>x.classList.remove("active"));e.target.classList.add("active");renderFood(e.target.dataset.food)};
+
+$("#activityGrid").innerHTML=activities.map(a=>`<article class="card activity-card reveal"><div class="activity-icon"><i class="fa-solid ${a.icon}"></i></div><h3 style="margin:14px 0">${a.name}</h3><p><b>${a.location}</b></p><p class="lead">${a.duration} • ${a.price}<br>${a.season} • ${a.intensity}<br>${a.family}</p><button class="btn btn-dark" onclick="addActivity('${a.name.replace(/'/g,"\\'")}')">Add to Trip</button></article>`).join("");
+
+$("#trustGrid").innerHTML=trust.map((x,i)=>`<div class="card trust-card reveal"><i class="fa-solid ${["fa-route","fa-map","fa-sliders","fa-receipt","fa-passport","fa-person-hiking","fa-hotel","fa-user-tie","fa-brands fa-whatsapp","fa-file-invoice-dollar"][i]}"></i><strong>${x}</strong></div>`).join("");
+$("#testimonialGrid").innerHTML=[
+["“The planner made it easy to understand how Kathmandu, Pokhara and Chitwan could fit into one trip.”","Sample Traveler, UK"],
+["“I liked seeing a realistic trekking duration instead of an impossible rushed plan.”","Sample Trekker, Australia"],
+["“The WhatsApp quotation message saved time and kept all our preferences organized.”","Sample Family, Singapore"]
+].map(x=>`<article class="card testimonial reveal"><div class="stars">★★★★★</div><p class="lead">${x[0]}</p><strong>${x[1]}</strong><p><small>Demo testimonial — replace before launch</small></p></article>`).join("");
+
+$("#faqList").innerHTML=faq.map((x,i)=>`<div class="faq-item"><button class="faq-q" aria-expanded="false">${x[0]}<span>＋</span></button><div class="faq-a">${x[1]}</div></div>`).join("");
+$("#faqList").onclick=e=>{const q=e.target.closest(".faq-q");if(!q)return;const item=q.parentElement;item.classList.toggle("open");q.setAttribute("aria-expanded",item.classList.contains("open"));q.lastElementChild.textContent=item.classList.contains("open")?"−":"＋"};
+
+function initMap(){
+  if(!window.L)return;
+  const map=L.map("map",{scrollWheelZoom:false}).setView([28.25,84.0],7);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap contributors"}).addTo(map);
+  destinations.filter(d=>["Kathmandu","Pokhara","Chitwan","Solukhumbu","Mustang","Manang","Ilam","Sankhuwasabha","Lumbini","Bardia","Rara Lake","Langtang","Janakpur"].includes(d.name)).forEach(d=>{
+    const popup=`<div class="map-popup"><img src="${d.image}" alt="${d.name}"><b>${d.name}</b><p>${d.desc}</p><small>${d.season} • ${d.stay}</small><br><button onclick="addDestination('${d.name.replace(/'/g,"\\'")}')" style="margin-top:8px">Add to Trip</button></div>`;
+    L.marker([d.lat,d.lng]).addTo(map).bindPopup(popup);
+  });
+}
+
+function buildPlanner(){
+  $("#plannerSteps").innerHTML=plannerSteps.map((s,i)=>`<section class="planner-step ${i===0?"active":""}" data-step="${i}"><span class="eyebrow">Step ${i+1} of 9</span><h3 style="font-size:2rem;margin:8px 0 22px">${s.title}</h3>${s.html}</section>`).join("");
+  $("#stepList").innerHTML=plannerSteps.map((s,i)=>`<div class="step-link ${i===0?"active":""}">${i+1}. ${s.title}</div>`).join("");
+  bindChoices(); loadPlan();
+}
+function bindChoices(){$$(".choice input").forEach(inp=>inp.addEventListener("change",()=>{inp.closest(".choice").classList.toggle("selected",inp.checked);savePlan()}));$("#tripForm").addEventListener("input",savePlan)}
+function getFormData(){
+  const fd=new FormData($("#tripForm")), obj={};
+  for(const [k,v] of fd.entries()){if(obj[k])obj[k]=Array.isArray(obj[k])?[...obj[k],v]:[obj[k],v];else obj[k]=v}
+  ["tripTypes","selectedDestinations","selectedActivities","visaNeeds"].forEach(k=>obj[k]=obj[k]?(Array.isArray(obj[k])?obj[k]:[obj[k]]):[]);
+  return obj;
+}
+function savePlan(){localStorage.setItem("mrslTripDraft",JSON.stringify(getFormData()));$("#savedNote").textContent="Saved automatically at "+new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})}
+function loadPlan(){
+  try{
+    const data=JSON.parse(localStorage.getItem("mrslTripDraft")||"null");if(!data)return;
+    Object.entries(data).forEach(([k,v])=>{
+      const vals=Array.isArray(v)?v:[v];
+      vals.forEach(val=>{
+        const els=[...document.getElementsByName(k)];
+        els.forEach(el=>{if(el.type==="checkbox"||el.type==="radio"){if(el.value===val){el.checked=true;el.closest(".choice")?.classList.add("selected")}}else el.value=val});
+      });
+    });
+  }catch(e){console.warn("Could not load saved trip",e)}
+}
+function showStep(){
+  $$(".planner-step").forEach((x,i)=>x.classList.toggle("active",i===currentStep));
+  $$(".step-link").forEach((x,i)=>x.classList.toggle("active",i===currentStep));
+  $("#progressFill").style.width=((currentStep+1)/plannerSteps.length*100)+"%";
+  $("#progressText").textContent=`Step ${currentStep+1} of ${plannerSteps.length}`;
+  $("#prevStep").style.visibility=currentStep===0?"hidden":"visible";
+  $("#nextStep").innerHTML=currentStep===plannerSteps.length-1?'Generate My Trip <i class="fa-solid fa-wand-magic-sparkles"></i>':'Continue <i class="fa-solid fa-arrow-right"></i>';
+}
+function validateStep(){
+  const active=$$(".planner-step")[currentStep], required=[...active.querySelectorAll("[required]")];
+  let ok=true;required.forEach(x=>{if(!x.checkValidity()){x.reportValidity();ok=false}});return ok;
+}
+$("#nextStep").onclick=()=>{if(!validateStep())return;if(currentStep<plannerSteps.length-1){currentStep++;showStep();window.scrollTo({top:$("#planner").offsetTop+100,behavior:"smooth"})}else generateTrip()};
+$("#prevStep").onclick=()=>{if(currentStep>0){currentStep--;showStep()}};
+$("#clearPlan").onclick=()=>{if(confirm("Clear all saved trip information on this device?")){localStorage.removeItem("mrslTripDraft");$("#tripForm").reset();$$(".choice").forEach(x=>x.classList.remove("selected"));toast("Saved trip cleared.")}};
+
+function addDestination(name){
+  const box=[...document.getElementsByName("selectedDestinations")].find(x=>x.value===name);
+  if(box){box.checked=true;box.closest(".choice").classList.add("selected");savePlan();toast(name+" added to your trip.");}
+}
+function addActivity(name){const box=[...document.getElementsByName("selectedActivities")].find(x=>x.value===name);if(box){box.checked=true;box.closest(".choice").classList.add("selected");savePlan();toast(name+" added to your trip.")}}
+function addTrek(id){const t=treks[id];const type=[...document.getElementsByName("tripTypes")].find(x=>x.value==="Trekking");if(type){type.checked=true;type.closest(".choice").classList.add("selected")}if(t.name.includes("Everest"))addDestination("Solukhumbu");else if(t.name.includes("Mustang"))addDestination("Mustang");else if(t.name.includes("Langtang"))addDestination("Langtang");else if(t.name.includes("Makalu"))addDestination("Sankhuwasabha");else addDestination("Pokhara");toast(t.name+" added as a trip interest.");savePlan()}
+function setVisaInterest(){setTimeout(()=>{const x=[...document.getElementsByName("visaNeeds")].find(x=>x.value==="Nepal visa guidance");if(x){x.checked=true;x.closest(".choice").classList.add("selected");savePlan()}},500)}
+
+const rates={USD:1,EUR:.92,GBP:.78,AUD:1.52,CAD:1.37,INR:83,NPR:133}; // DEMO STATIC RATES ONLY
+const styleCosts={Economy:55,Standard:95,Comfort:145,Premium:230,Luxury:420,"Custom budget":95};
+function recommendDestinations(data){
+  let d=[...data.selectedDestinations].filter(x=>x!=="Recommend destinations for me");
+  const types=data.tripTypes;
+  if(!d.length||data.selectedDestinations.includes("Recommend destinations for me")){
+    if(types.includes("Wildlife"))d.push("Chitwan");
+    if(types.includes("Spiritual"))d.push("Kathmandu","Lumbini");
+    if(types.includes("Trekking")||types.includes("Mountain experience"))d.push("Pokhara","Langtang");
+    if(types.includes("Food")||types.includes("Cultural"))d.push("Kathmandu","Bhaktapur");
+    if(types.includes("Luxury")||types.includes("Honeymoon"))d.push("Pokhara","Dhulikhel");
+    if(!d.length)d.push("Kathmandu","Pokhara","Chitwan");
+  }
+  if(!d.includes("Kathmandu"))d.unshift("Kathmandu");
+  return [...new Set(d)].slice(0,Math.max(2,Math.min(6,Math.ceil(Number(data.days)/3)))) ;
+}
+function generateItinerary(data,dests){
+  const days=Number(data.days), itinerary=[];
+  const minDays={Solukhumbu:12,Mustang:5,Manang:5,Langtang:7,Sankhuwasabha:12,"Rara Lake":4,Bardia:3,Chitwan:2,Pokhara:2,Kathmandu:2,Lumbini:1};
+  let route=[...dests];
+  if(days<=7)route=route.filter(x=>!["Solukhumbu","Sankhuwasabha"].includes(x)).slice(0,3);
+  let allocation={}, remaining=days;
+  route.forEach((d,i)=>{const left=route.length-i;let n=Math.max(1,Math.min(minDays[d]||2,remaining-left+1));allocation[d]=n;remaining-=n});
+  let idx=0;while(remaining>0){allocation[route[idx%route.length]]++;remaining--;idx++}
+  let day=1;
+  route.forEach((d,ri)=>{
+    for(let j=1;j<=allocation[d];j++){
+      let title,detail;
+      if(j===1&&ri>0){title=`Travel to ${d}`;detail=`Transfer from ${route[ri-1]} to ${d}. Allow flexibility for road or flight delays. Check in and take a gentle orientation walk.`}
+      else if(["Solukhumbu","Langtang","Manang","Mustang","Sankhuwasabha","Rara Lake"].includes(d)){
+        if(j===2) {title=`Acclimatization and local exploration in ${d}`;detail="Walk at a controlled pace, hydrate, monitor altitude symptoms and follow guide advice."}
+        else {title=`Mountain journey — ${d}`;detail=`Trekking or scenic exploration with appropriate rest, permit checks and weather contingency. Activities: ${data.selectedActivities.join(", ")||"guided walking and cultural stops"}.`}
+      } else {
+        title=`Explore ${d}`;
+        const dest=destinations.find(x=>x.name===d);detail=`Discover ${dest?.attractions||"local highlights"}. Consider ${dest?.activities||"guided sightseeing"} and local food such as ${dest?.food||"regional cuisine"}.`;
+      }
+      itinerary.push({day,title,detail});day++;
+    }
+  });
+  return itinerary.slice(0,days);
+}
+function calculateBudget(data){
+  const travelers=Math.max(1,Number(data.adults||1)+Number(data.children||0)*.65),days=Number(data.days),style=data.budgetStyle;
+  let daily=styleCosts[style]||95;
+  if(data.tripTypes.includes("Trekking"))daily+=35;if(data.selectedActivities.includes("Helicopter tour"))daily+=160;if(data.selectedActivities.includes("Mountain flight"))daily+=25;
+  if(data.transportation==="Domestic flight")daily+=35;if(data.transportation==="Private jeep")daily+=25;if(data.transportation==="Luxury vehicle")daily+=70;
+  if(data.selectedDestinations.some(x=>["Solukhumbu","Mustang","Manang","Sankhuwasabha","Dolpo"].includes(x)))daily+=30;
+  const totalBase=daily*days*travelers;
+  const custom=Number(data.customBudget||0);
+  const total=style==="Custom budget"&&custom>0?custom:totalBase;
+  const breakdown={Accommodation:total*.32,Food:total*.16,Transport:total*.20,Activities:total*.14,"Permits / guide":total*.10,Contingency:total*.08};
+  return {travelers,total,perPerson:total/travelers,breakdown};
+}
+function generateTrip(){
+  const data=getFormData(), dests=recommendDestinations(data);data.selectedDestinations=dests;
+  $("#tripForm").style.display="none";$("#loader").classList.add("show");
+  setTimeout(()=>{const itinerary=generateItinerary(data,dests),budget=calculateBudget(data);currentReport={data,dests,itinerary,budget};renderReport(currentReport);$("#loader").classList.remove("show");$("#report").classList.add("show");confetti();$("#report").scrollIntoView({behavior:"smooth"});},1100);
+}
+function money(v,currency){return new Intl.NumberFormat("en-US",{style:"currency",currency:currency==="NPR"?"NPR":currency,maximumFractionDigits:0}).format(v*rates[currency])}
+function compactReport(r){
+  const d=r.data,b=r.budget;
+  return `Traveler: ${d.fullName}\nCountry: ${d.country}\nEmail: ${d.email}\nWhatsApp: ${d.whatsapp||"Not provided"}\nTravelers: ${d.adults} adults, ${d.children} children\nArrival: ${d.arrival||"Flexible"}\nDuration: ${d.days} days\nPace: ${d.pace}\nTrip type: ${d.tripTypes.join(", ")||"General exploration"}\nDestinations: ${r.dests.join(", ")}\nAccommodation: ${d.accommodation||"Flexible"}\nTransportation: ${d.transportation||"Flexible"}\nActivities: ${d.selectedActivities.join(", ")||"To be advised"}\nVisa assistance: ${d.visaNeeds.join(", ")||"Not requested"}\nEstimated total: ${money(b.total,d.currency)}\nEstimated per person: ${money(b.perPerson,d.currency)}\nSpecial requests: ${d.specialRequests||"None"}\n\nItinerary:\n${r.itinerary.map(x=>`Day ${x.day}: ${x.title}`).join("\n")}`;
+}
+function renderReport(r){
+  const d=r.data,b=r.budget,summary=compactReport(r);
+  $("#report").innerHTML=`<div class="report-cover"><div><span class="eyebrow" style="color:#ffd27d">Personalized Nepal Trip Plan</span><h2>${esc(d.fullName)}'s Nepal Journey</h2><p>Discover Nepal. Design Your Journey. Travel With Confidence.</p></div><img src="https://placehold.co/220x80/ffffff/0b3b5a?text=Mrsl+Travel+Nepal" alt="Mrsl Travel Nepal" style="width:180px;align-self:start;border-radius:10px"></div>
+  <div class="report-body" id="printableReport">
+    <div class="grid summary-grid">
+      <div class="summary-box"><small>Traveler</small><strong>${esc(d.fullName)}</strong><br>${esc(d.country)}</div>
+      <div class="summary-box"><small>Travelers</small><strong>${d.adults} adults</strong><br>${d.children} children</div>
+      <div class="summary-box"><small>Duration</small><strong>${d.days} days</strong><br>${esc(d.arrival||"Flexible arrival")}</div>
+      <div class="summary-box"><small>Style</small><strong>${esc(d.budgetStyle)}</strong><br>${esc(d.pace)} pace</div>
+    </div>
+    <h3 style="margin-top:30px">Route Overview</h3><div class="route-line">${r.dests.map(x=>`<div class="route-stop"><div class="route-dot"><i class="fa-solid fa-location-dot"></i></div><strong>${x}</strong></div>`).join("")}</div>
+    <h3>Day-by-Day Itinerary</h3>${r.itinerary.map(x=>`<div class="itinerary-day"><div class="day-num">Day<br>${x.day}</div><div><h3>${x.title}</h3><p class="lead">${x.detail}</p></div></div>`).join("")}
+    <h3 style="margin-top:28px">Travel Plan</h3><p><b>Accommodation:</b> ${esc(d.accommodation||"Flexible")}<br><b>Transportation:</b> ${esc(d.transportation||"Flexible")}<br><b>Activities:</b> ${esc(d.selectedActivities.join(", ")||"To be advised")}<br><b>Visa / permits:</b> ${esc(d.visaNeeds.join(", ")||"Not requested")}<br><b>Special requests:</b> ${esc(d.specialRequests||"None")}</p>
+    <h3>Estimated Budget</h3><div style="overflow:auto"><table><thead><tr><th>Category</th><th>Estimated amount</th></tr></thead><tbody>${Object.entries(b.breakdown).map(([k,v])=>`<tr><td>${k}</td><td>${money(v,d.currency)}</td></tr>`).join("")}<tr><th>Total</th><th>${money(b.total,d.currency)}</th></tr><tr><th>Per person</th><th>${money(b.perPerson,d.currency)}</th></tr></tbody></table></div>
+    <div class="card" style="padding:18px;margin-top:22px;background:#fff7e8"><strong>Important planning note</strong><p>This automatically generated itinerary and budget are preliminary estimates. Final prices depend on dates, availability, route conditions, permits, weather, group size, and service selection. High-altitude travel requires suitable acclimatization, medical awareness, insurance and qualified local support. Road and mountain flights may be delayed.</p></div>
+    <h3 style="margin-top:24px">Mrsl Travel Nepal</h3><p>${BUSINESS.address}<br>${BUSINESS.email} • ${BUSINESS.phone}</p>
+  </div>
+  <div class="report-actions">
+    <button class="btn btn-dark" onclick="editPlan()">Edit My Plan</button><button class="btn btn-dark" onclick="window.print()">Print Plan</button><button class="btn btn-primary" onclick="downloadPDF()">Download as PDF</button>
+    <button class="btn btn-primary" onclick="quoteWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Get Quotation on WhatsApp</button>
+    <button class="btn btn-dark" onclick="quoteGmail()"><i class="fa-solid fa-envelope"></i> Get Quotation by Gmail</button>
+    <button class="btn btn-dark" onclick="quoteEmail()">Send by Email</button><a class="btn btn-light" href="#contact">Request Preferred Contact</a>
+  </div>`;
+}
+function editPlan(){$("#report").classList.remove("show");$("#tripForm").style.display="block";currentStep=0;showStep();$("#tripForm").scrollIntoView({behavior:"smooth"})}
+function quoteWhatsApp(){if(!currentReport)return;const msg="Hello Mrsl Travel Nepal, I created a Nepal trip plan on your website and would like a final quotation.\n\n"+compactReport(currentReport);window.open(`https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(msg)}`,"_blank")}
+function quoteGmail(){if(!currentReport)return;const subject="Send Me a Quotation – Nepal Trip Plan",body=compactReport(currentReport);window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(BUSINESS.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,"_blank")}
+function quoteEmail(){if(!currentReport)return;location.href=`mailto:${BUSINESS.email}?subject=${encodeURIComponent("Send Me a Quotation – Nepal Trip Plan")}&body=${encodeURIComponent(compactReport(currentReport))}`}
+async function downloadPDF(){
+  if(!currentReport)return;
+  try{
+    if(!window.html2canvas||!window.jspdf)throw new Error("PDF libraries unavailable");
+    const canvas=await html2canvas($("#printableReport"),{scale:1.5,useCORS:true,backgroundColor:"#ffffff"});
+    const img=canvas.toDataURL("image/jpeg",.92),{jsPDF}=window.jspdf,pdf=new jsPDF("p","mm","a4");
+    const w=190,h=canvas.height*w/canvas.width,pageH=277;let y=10,remaining=h;
+    pdf.addImage(img,"JPEG",10,y,w,h);remaining-=pageH;
+    while(remaining>0){pdf.addPage();y=10-(h-remaining);pdf.addImage(img,"JPEG",10,y,w,h);remaining-=pageH}
+    pdf.save("Mrsl-Travel-Nepal-Trip-Plan.pdf");
+  }catch(e){console.error(e);toast("PDF library was unavailable. Use Print Plan and save as PDF instead.")}
+}
+function confetti(){for(let i=0;i<45;i++){const p=document.createElement("i");p.style.cssText=`position:fixed;z-index:5000;left:${Math.random()*100}vw;top:-10px;width:8px;height:14px;background:hsl(${Math.random()*360} 80% 55%);transform:rotate(${Math.random()*360}deg);transition:transform 1.6s linear,top 1.6s ease-in;pointer-events:none`;document.body.appendChild(p);requestAnimationFrame(()=>{p.style.top="105vh";p.style.transform+=` translateX(${(Math.random()-.5)*260}px)`});setTimeout(()=>p.remove(),1800)}}
+
+$("#contactForm").addEventListener("submit",e=>{e.preventDefault();const f=new FormData(e.target),msg=`Hello Mrsl Travel Nepal, I would like to request contact.\nName: ${f.get("contactName")}\nContact: ${f.get("contactDetails")}\nPreferred method: ${f.get("contactMethod")}\nBest time: ${f.get("bestTime")}\nTime zone: ${f.get("timezone")}\nMessage: ${f.get("contactMessage")}`;window.open(`https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(msg)}`,"_blank")});
+
+function setupNavigation(){
+  const header=$("#header"),links=$$(".nav-links a"),sections=$$("main section[id]");
+  addEventListener("scroll",()=>{header.classList.toggle("scrolled",scrollY>40);$("#scrollProgress").style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+"%";let cur="home";sections.forEach(s=>{if(scrollY>=s.offsetTop-150)cur=s.id});links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+cur))},{passive:true});
+  $("#hamburger").onclick=()=>$("#navLinks").classList.toggle("open");links.forEach(a=>a.onclick=()=>$("#navLinks").classList.remove("open"));
+}
+function setupReveal(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("visible")}),{threshold:.1});
+  $$(".reveal").forEach(x=>io.observe(x));
+}
+function handleErrors(){addEventListener("error",e=>{if(e.target?.tagName==="IMG"){e.target.src=images.default}},true)}
+function init(){renderDestinations();renderTreks();renderClimate();renderFood();buildPlanner();setupNavigation();setupReveal();handleErrors();setTimeout(initMap,200)}
+document.addEventListener("DOMContentLoaded",init);
+</script>
+</body>
+</html>
